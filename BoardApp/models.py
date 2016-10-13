@@ -11,20 +11,16 @@ class Board(models.Model):
         return self.name
 
 
-class Article(models.Model):
+class Post(models.Model):
     author = models.CharField(max_length=100)
     title = models.CharField(max_length=200)
     mail = models.EmailField(null=True)
     text = models.TextField()
-    on_board = Board()
+    on_board = models.ForeignKey(Board,related_name="posts")
+    father = models.PositiveIntegerField(null=True)
 
     def __str__(self):
         return self.title
 
 
-class Comment(models.Model):
-    author = models.CharField(max_length=100)
-    title = models.CharField(max_length=200)
-    text = models.TextField()
-    on_article = Article()
 

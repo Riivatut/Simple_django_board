@@ -4,6 +4,6 @@ from . import views
 
 
 urlpatterns = [
-    #url(r'^$',views.base),
-    #url(r'^(?P<bord_name>[a-z])/$',views.show_bords)
+    url(r'^$',views.index, name="index"),
+    url(r'^(?P<board_name>[a-z]{1,10})/$',views.show_boards)
 ]

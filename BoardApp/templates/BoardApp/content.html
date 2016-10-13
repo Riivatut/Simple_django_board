@@ -1,0 +1,18 @@
+{% extends 'BoardApp/index.html' %}
+
+{% block content %}
+
+			<h3 style="text-align:center;">{{ board.name }}</h3>
+			<p style ="text-align:center;">{{ board.title }}</p>
+			<article class='posts'>
+				{% for post in posts %}
+                 <p>test</p>
+				<header><strong>{{ post.autor }}</strong></header>
+				<p>{{ post.title }}</p>
+				<p>{{ post.text }}</p>
+				{% endfor %}
+				<p>test</p>
+
+			</article>
+
+{% endblock %}

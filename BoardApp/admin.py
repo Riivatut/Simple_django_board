@@ -3,4 +3,4 @@ from BoardApp.models import *
 
 # Register your models here.
 
-admin.site.register([Article,Board])
+admin.site.register([Post,Board])
