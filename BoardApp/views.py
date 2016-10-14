@@ -1,17 +1,20 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import get_object_or_404,render
-from BoardApp.models import Board
+from BoardApp.models import Board, Post
 
 # Create your views here.
 
 
 def index(request):
-    template = loader.get_template('BoardApp/index.html')
-    return HttpResponse(template.render())
+    return render(request,'BoardApp/index.html')
 
 
 def show_boards(request,board_name):
     board = get_object_or_404(Board,name=board_name)
-
-    return render(request,'BoardApp/content.html', {'board':board})
+    posts = Post.objects.filter(on_board=board)
+    context = {
+        'board': board,
+        'posts': posts
+    }
+    return render(request,'BoardApp/content.html', context)

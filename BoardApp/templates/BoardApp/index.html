@@ -1,45 +1,16 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <title>Board</title>
-    <style>
-        body{
-            height: 950px;
-        }
-		#content{
-            margin: auto;
-			border: 4px double black;
-			width:70%;
-            height: 100%;
-            padding-top: 10%;
-			}
-        .navigation{
-            float: left;
-			max-width:15%;
-            height: 100%;
+    <link href="{% static 'BoardApp/style.css' %}" rel="stylesheet">
 
-			background-color:grey;
-			}
-		.header-img{
-			height:120px;
 
-			background-color:white;
-			}
-		.section{
-
-			background-color:black;
-			color:white;
-			}
-
-		.nav-list{
-			list-style:none;
-			}
-
-    </style>
 </head>
 <body>
-	<span>
+<span>
         <nav class='navigation'>
 			<div class='header-img'>
 			    <!-- <img style='height:100px;width:100px' src='' /> -->
@@ -55,7 +26,7 @@
 			    <li><a href='/a'>/a/ - Аниме</a></li>
 			    <li><a href='/ma'>/ma/ - Манга</a></li>
 			</ul>
-			<p class ='section'>На пробу</p>
+			<p class='section'>На пробу</p>
 			 <ul class='nav-list'>
 			    <li><a href='/tv'>/tv/ - Кино</a></li>
 			    <li><a href='/cp'>/cp/ - Cp</a></li>
@@ -69,7 +40,7 @@
 
 
 
-			 {% endblock %}
+             {% endblock %}
         </div>
   </span>
 </body>
