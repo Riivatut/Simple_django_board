@@ -2,18 +2,31 @@
 
 {% block content %}
 
-			<h3 style="text-align:center;">{{ board.name }}</h3>
-			<p style ="text-align:center;">{{ board.title }}</p>
-			{% for post in posts %}
-                <article class='posts'>
+    <h3 style="text-align:center;">{{ board.name }}</h3>
+    <p style="text-align:center;">{{ board.title }}</p>
+    {% for post in posts %}
+        <article class='posts'>
 				    <span>
                         <strong>{{ post.title }}</strong>
                         <strong style="color: forestgreen">{{ post.author }}</strong>
                         {{ post.time }}
                     </span>
-				<p>{{ post.text }}</p>
+            <p>{{ post.text }}</p>
+        </article>
+        {% for comment in comments %}
+            {% if comment.father_id == post.post_id %}
+                <article class='comment'>
+				    <span>
+                        <strong>{{ comment.title }}</strong>
+                        <strong style="color: forestgreen">{{ comment.author }}</strong>
+                        {{ comment.time }}
+                    </span>
+                    <p>{{ comment.text }}</p>
                 </article>
-            {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+    {% endfor %}
 
 
 {% endblock %}

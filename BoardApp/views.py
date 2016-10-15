@@ -12,9 +12,11 @@ def index(request):
 
 def show_boards(request,board_name):
     board = get_object_or_404(Board,name=board_name)
-    posts = Post.objects.filter(on_board=board)
+    posts = Post.objects.filter(on_board=board,father_id__isnull=True)
+    comments = Post.objects.filter(on_board=board,father_id__isnull=False)
     context = {
         'board': board,
-        'posts': posts
+        'posts': posts,
+        'comments': comments
     }
     return render(request,'BoardApp/content.html', context)
