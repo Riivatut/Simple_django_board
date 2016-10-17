@@ -1,12 +1,18 @@
 body {
+    margin: auto;
 }
 
 #content {
+    float:left;
     margin: auto;
     border: 4px double black;
-    width: 70%;
+    width: 80%;
     height: 100%;
     padding-top: 10%;
+}
+
+A:visited {
+    color: black;
 }
 
 .navigation {
@@ -32,7 +38,15 @@ body {
 .nav-list {
     list-style: none;
 }
-.posts{
+
+.posts {
+    padding: 5px;
     border-top: double 2px;
+    background-color: gainsboro;
+}
+
+.comment {
+    border: solid gainsboro 1px;
+    padding: 5px;
 }
 
