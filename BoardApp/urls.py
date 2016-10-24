@@ -5,5 +5,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$',views.index, name="index"),
-    url(r'^(?P<board_name>[a-z]{1,10})/$',views.show_boards)
+    url(r'^(?P<board_name>[a-z]{1,10})/$',views.show_boards),
 ]

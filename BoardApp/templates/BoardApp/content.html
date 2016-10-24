@@ -10,26 +10,38 @@
                         <strong>{{ post.title }}</strong>
                         <strong style="color: forestgreen">{{ post.author }}</strong>
                         {{ post.time }}
+                        No
+                        {{ post.post_id }}
                     </span>
             <p>{{ post.text }}</p>
         </article>
         {% for comment in comments %}
+
             {% if comment.father_id == post.post_id %}
                 <article class='comment'>
 				    <span>
                         <strong>{{ comment.title }}</strong>
                         <strong style="color: forestgreen">{{ comment.author }}</strong>
                         {{ comment.time }}
+                        No
+                        {{ comment.post_id }}
                     </span>
                     <p>{{ comment.text }}</p>
                 </article>
             {% endif %}
+
         {% endfor %}
-        <form>
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="father_id" value="{{ post.post_id }}">
+            <button type="submit" class="save btn btn-default" name="new_post">Save</button>
 
         </form>
 
     {% endfor %}
-
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default" name="new_thread">Save</button>
+    </form>
 
 {% endblock %}
