@@ -2,6 +2,8 @@
 
 {% block content %}
 
+
+
     <h3 style="text-align:center;">{{ board.name }}</h3>
     <p style="text-align:center;">{{ board.title }}</p>
     {% for post in posts %}
@@ -26,20 +28,25 @@
                         No
                         {{ comment.post_id }}
                     </span>
+                    {% if comment.image %}
+                         <img src="{{ comment.image.url }}" alt="My image" />
+                    {% endif %}
+
                     <p>{{ comment.text }}</p>
                 </article>
             {% endif %}
 
         {% endfor %}
-        <form method="POST" class="post-form">{% csrf_token %}
+        <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
             {{ form.as_p }}
+
             <input type="hidden" name="father_id" value="{{ post.post_id }}">
             <button type="submit" class="save btn btn-default" name="new_post">Save</button>
 
         </form>
 
     {% endfor %}
-    <form method="POST" class="post-form">{% csrf_token %}
+    <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="save btn btn-default" name="new_thread">Save</button>
     </form>

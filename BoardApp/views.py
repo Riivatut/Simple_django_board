@@ -5,6 +5,10 @@ from .forms import PostingForm
 
 
 # Create your views here.
+def handle_uploaded_file(f):
+    with open('/static/data.txt', 'wb+') as dest:
+        for chunk in f.chunks():
+            dest.write(chunk)
 
 
 def index(request):
@@ -18,22 +22,24 @@ def show_boards(request, board_name):
 
     # forms
     if request.method == "POST" and 'new_thread' in request.POST:
-        form = PostingForm(request.POST)
+        form = PostingForm(request.POST, request.FILES)
         if form.is_valid():
             tread = form.save(commit=False)
             tread.published_date = timezone.now()
             tread.on_board = board
+            tread.image = request.FILES['image']
             board.counter += 1
             board.save()
             tread.post_id = board.counter
             tread.save()
 
     elif request.method == "POST" and 'new_post' in request.POST:
-        form = PostingForm(request.POST)
+        form = PostingForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.published_date = timezone.now()
             post.on_board = board
+            post.image = request.FILES['image']
             board.counter += 1
             board.save()
             post.post_id = board.counter
@@ -45,7 +51,7 @@ def show_boards(request, board_name):
         'board': board,
         'posts': posts,
         'comments': comments,
-        'form':  PostingForm()
+        'form':  form
     }
     return render(request, 'BoardApp/content.html', context)
 
