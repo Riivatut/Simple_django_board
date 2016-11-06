@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 
 
 class Board(models.Model):
@@ -12,10 +14,10 @@ class Board(models.Model):
 
 
 class Post(models.Model):
+    ordering = ['-time']
     time = models.DateTimeField(default = timezone.now)
     author = models.CharField(max_length=100, blank=True, default='Анонимус')
     mail = models.EmailField(null=True, blank=True)
-    image = models.FileField(null=True, blank=True, upload_to='uploads/')
     title = models.CharField(max_length=200, blank=True)
     text = models.TextField()
 
@@ -26,3 +28,10 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+
+class AttachFile(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="image")
+    image = models.FileField(null=True, blank=True, upload_to='uploads/')
+    image_thumbnail = ImageSpecField(source='image',  processors=[ResizeToFill(100, 50)],
+                              format='JPEG',
+                              options={'quality': 60})

@@ -16,6 +16,13 @@
                         {{ post.post_id }}
                     </span>
             <p>{{ post.text }}</p>
+        <div>
+            {% for im in post.image.all %}
+                {% if im.image %}
+                <p><img src="{{ im.image_thumbnail.url }}" alt="aa"></p>
+                {% endif %}
+            {% endfor %}
+        </div>
         </article>
         {% for comment in comments %}
 
@@ -28,18 +35,19 @@
                         No
                         {{ comment.post_id }}
                     </span>
-                    {% if comment.image %}
-                         <img src="{{ comment.image.url }}" alt="My image" />
-                    {% endif %}
-
                     <p>{{ comment.text }}</p>
+                    {% for img in comment.image.all %}
+                        <p><img src="{{ img.image_thumbnail.url }}" alt=""></p>
+                    {% endfor %}
                 </article>
             {% endif %}
 
         {% endfor %}
         <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
             {{ form.as_p }}
-
+            {% for ff in file_form_list %}
+                {{ ff.as_p }}
+            {% endfor %}
             <input type="hidden" name="father_id" value="{{ post.post_id }}">
             <button type="submit" class="save btn btn-default" name="new_post">Save</button>
 
@@ -48,6 +56,9 @@
     {% endfor %}
     <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
         {{ form.as_p }}
+            {% for ff in file_form_list %}
+                {{ ff.as_p }}
+            {% endfor %}
         <button type="submit" class="save btn btn-default" name="new_thread">Save</button>
     </form>
 
